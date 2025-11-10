@@ -1,13 +1,9 @@
-import { updateSession } from "@/lib/supabase/middleware"
 import type { NextRequest } from "next/server"
-
-const SUPABASE_CONFIGURED = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+import { NextResponse } from "next/server"
 
 export async function middleware(request: NextRequest) {
-  if (!SUPABASE_CONFIGURED) {
-    return undefined // Skip middleware if Supabase is not configured
-  }
-  return await updateSession(request)
+  // Just pass through all requests - authentication will be handled in individual routes
+  return NextResponse.next()
 }
 
 export const config = {
